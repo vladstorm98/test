@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Adding words
+{% endblock %}
+
+
+{% block burger %}
+<li>
+    <a href="#popup-create-dictionary" class="header_link"> 
+        Create dict
+    </a>
+</li>
+<li>
+    <a href="#popup-dictionary" class="header_link">
+        {% if num != '' %}
+        Dict {{ num }}
+        {% else %}
+        Enter dict
+        {% endif %}
+    </a>
+</li>
+<li>
+    <a href="{{ url_for('api.index') }}" class="header_link">
+        Train words    
+    </a>
+</li>
+{% endblock %}
+
+
+{% block option %}
+<a href="#popup-create-dictionary" class="title-mode-position"> 
+    <div class="title-content"> 
+        <div class="title-text">
+            Create dict
+        </div>
+    </div>
+</a>
+{% endblock %}
+
+
+{% block url %}
+{{ url_for('api.add_words') }}
+{% endblock %}
+
+
+{% block ask %}
+<div class="block-title-position">
+    <div class="block-title-text">English value:</div>
+</div>
+<div class="block-value-position">
+    <div class="block-input-position">
+        <input type="text" name="eng" id="translate" class="block-input" placeholder="Enter word" autocomplete="off" autofocus required>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block answer %}
+<div class="block-title-position">
+    <div class="block-title-text">Russian value:</div>
+</div>
+<div class="block-value-position">
+    <div class="block-input-position">
+        <input type="text" name="rus" id="translate" class="block-input" placeholder="Enter translate" autocomplete="off" required>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block footer %}
+<a href="{{ url_for('api.index') }}" class="footer-add-position">
+    <div class="footer-content">
+        <div class="footer-text">Train words</div>
+    </div>
+</a>
+{% endblock %}
+
+
+{% block option_popup %}
+<div id="popup-create-dictionary" class="popup">
+    <a href="#" class="popup-area-close"></a>
+    <div class="popup-position">
+          <form action="{{ url_for('api.add_words') }}" method="post">
+              <div class="popup-content-dictionary">
+
+                <a href="#" class="popup-close">X</a>
+                <div class="popup-title">Enter the dictionary number:</div>
+                <div class="dictionary">
+                    <input type="text" name="ctr_num" class="dictionary-input" placeholder="Enter number" autocomplete="off" required>
+                </div>
+                {% for cat, msg in get_flashed_messages(True) %}
+                <div class="flash_{{cat}}">{{msg}}</div>
+                {% endfor %}
+                <div class="button-block">
+                    <input type="submit" class="button" value="Submit">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block url_popup %}
+{{ url_for('api.add_words') }}
+{% endblock %}

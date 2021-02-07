@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+WordTrainer
+{% endblock %}
+
+
+{% block burger %}
+<li>
+    <a href="#popup-mode" class="header_link"> 
+        {% if mode %}
+        {{ mode }} Mode
+        {% else %}
+        Select mode
+        {% endif %}
+    </a>
+</li>
+<li>
+    <a href="#popup-dictionary" class="header_link">
+        {% if num %}
+        Dict {{ num }}
+        {% else %}
+        Enter dict
+        {% endif %}
+    </a>
+</li>
+<li>
+    <a href="{{ url_for('api.add_words') }}" class="header_link">
+        Add words    
+    </a>
+</li>
+{% endblock %}
+
+
+{% block option %}
+<a href="#popup-mode" class="title-mode-position"> 
+    <div class="title-content"> 
+        <div class="title-text">
+            {% if mode != '' %}
+            {{ mode }} Mode
+            {% else %}
+            Select mode
+            {% endif %}
+        </div>
+    </div>
+</a>
+{% endblock %}
+
+
+{% block url %}
+{{ url_for('api.index') }}
+{% endblock %}
+
+
+{% block ask %}
+<div class="block-title-position">
+    <div class="block-title-text">Given word:</div>
+</div>
+<div class="block-value-position">
+    <div class="block-value-text">
+        {{ ask }}
+    </div>
+</div>
+{% endblock %}
+
+
+{% block answer %}
+ <div class="block-title-position">
+    <div class="block-title-text">
+        <button type="button" class="block-help" value="{{ help }}" onclick="addTextToInput(this)">Show hint</button>
+    </div>
+    <div class="block-title-text">
+        <button type="button" class="block-help" value="{{ answer }}" onclick="addTextToInput(this)">Show answer</button>
+    </div>
+</div>
+<div class="block-value-position">
+    <div class="block-input-position">
+        <input type="text" name="translate" id="translate" class="block-input" placeholder="Enter translate" autocomplete="off" autofocus required>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block footer %}
+<a href="{{ url_for('api.add_words') }}" class="footer-add-position">
+    <div class="footer-content">
+        <div class="footer-text">Add words</div>
+    </div>
+</a>
+{% endblock %}
+
+
+{% block option_popup %}
+<div id="popup-mode" class="popup">
+    <a href="#" class="popup-area-close"></a>
+    <div class="popup-position">
+        <div class="popup-content-mode">
+            <a href="#" class="popup-close">X</a>
+            <div class="popup-title">Select mode:</div>
+            <form action="/" method="post">
+                <div class="modes">
+                    <input type="submit" name="mode" class="mode-button" value="English-Russian">
+                    <input type="submit" name="mode" class="mode-button" value="Russian-English">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block url_popup %}
+{{ url_for('api.index') }}
+{% endblock %}
